@@ -1,6 +1,6 @@
 # ArcGis Map with layers
 
-This project was performed wirth react and ArcGis API JS
+This project was developed with react and ArcGis API JS
 
 ## Available Scripts
 
