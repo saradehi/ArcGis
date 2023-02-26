@@ -1,0 +1,6 @@
+@import "https://js.arcgis.com/4.25/@arcgis/core/assets/esri/themes/dark/main.css";
+
+#mapContainer {
+    width: 100%;
+    height: 100%;
+}

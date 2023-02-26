@@ -1,0 +1,14 @@
+.mainContainer {
+  width: 70rem;
+  height: 40rem;
+  margin: 80px auto;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  padding: 3rem;
+  border-radius: 30px;
+}
+
+.divContainer {
+  width: 70rem;
+  height: 40rem;
+  overflow-y: hidden;
+}
