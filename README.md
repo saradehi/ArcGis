@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# ArcGis Map with layers
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was developed with react and ArcGis API JS
 
 ## Available Scripts
 
