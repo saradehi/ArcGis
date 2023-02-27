@@ -9,10 +9,12 @@ import esriConfig from "@arcgis/core/config";
 
 // -- LAYER --
 import GeoJSONLayer from "@arcgis/core/layers/GeoJSONLayer";
+import RouteLayer from "@arcgis/core/layers/RouteLayer";
 
 // -- WIDGETS --
 import Search from "@arcgis/core/widgets/Search";
-import BasemapGallery from "@arcgis/core/widgets/BasemapGallery";
+import Directions from "@arcgis/core/widgets/Directions.js";
+import BasemapToggle from "@arcgis/core/widgets/BasemapToggle.js";
 import LayerList from "@arcgis/core/widgets/LayerList";
 
 // -- LAYER STYLE --
@@ -23,6 +25,8 @@ import Color from "@arcgis/core/Color";
 
 const MyMap = () => {
   useEffect(() => {
+    const apikey = process.env.REACT_APP_API_KEY;
+    esriConfig.apiKey = apikey;
     // -- POP-UP --
 
     const template = {
@@ -55,9 +59,13 @@ const MyMap = () => {
 
     // -- LAYERS --
 
-    let urlProvince = "https://provincias-api-default-rtdb.firebaseio.com/data.json";
-    let urlGeoRed = "https://redes-geodesicas-default-rtdb.firebaseio.com/data.json";
-    
+    const routeLayer = new RouteLayer();
+
+    let urlProvince =
+      "https://provincias-api-default-rtdb.firebaseio.com/data.json";
+    let urlGeoRed =
+      "https://redes-geodesicas-default-rtdb.firebaseio.com/data.json";
+
     const province = new GeoJSONLayer({
       title: "Provincias",
       url: urlProvince,
@@ -66,12 +74,10 @@ const MyMap = () => {
       popupTemplate: template,
       visible: false,
     });
-    
+
     const geored = new GeoJSONLayer({
       title: "Redes geodésicas",
       url: urlGeoRed,
-      opacity: 0.7,
-      show: false,
       visible: false,
     });
 
@@ -79,7 +85,7 @@ const MyMap = () => {
 
     var myMap = new Map({
       basemap: "satellite",
-      layers: [province, geored],
+      layers: [province, geored, routeLayer],
     });
 
     // -- RENDER -> VIEW MAP --
@@ -90,15 +96,23 @@ const MyMap = () => {
       zoom: 5,
     });
 
+    // --WIDGET -> DIRECTIONS --
+    const directionWidget = new Directions({
+      apiKey: apikey,
+      view,
+      layer: routeLayer
+    });
+
     // -- WIDGET -> SEARCH --
     const search = new Search({
       //Add Search widget
       view: view,
     });
 
-    // -- WIDGET -> BASEMAP GALLERY --
-    const basemapGallery = new BasemapGallery({
+    // -- WIDGET -> BASEMAP TOGGLE --
+    const basemapToggle = new BasemapToggle({
       view: view,
+      nextBasemap: "arcgis-topographic",
     });
 
     // -- WIDGET ->  --
@@ -108,11 +122,14 @@ const MyMap = () => {
 
     // -- AGREGAR WIDGETS --
     view.ui.add(search, "top-right");
-    view.ui.add(basemapGallery, {
+    view.ui.add(directionWidget, {
       position: "top-right",
     });
     view.ui.add(layerList, {
       position: "top-right",
+    });
+    view.ui.add(basemapToggle, {
+      position: "top-left",
     });
   }, []);
   return (

@@ -4,3 +4,20 @@
     width: 100%;
     height: 100%;
 }
+
+.esri-directions__panel-content{
+    height: 20rem;
+}
+
+.esri-view-height-small .esri-expand .esri-widget--panel, .esri-view-height-small .esri-expand .esri-widget--panel-height-only, .esri-view-height-small .esri-ui-corner .esri-component.esri-widget--panel, .esri-view-height-small .esri-ui-corner .esri-component.esri-widget--panel-height-only, .esri-search__container .esri-search__input, .esri-search__container .esri-widget--button{
+    border-radius: 10px;
+}
+
+.esri-ui-corner, .esri-zoom{
+    border-radius: 40px;
+    background-color: transparent;
+}
+
+.esri-widget{
+    border-radius: 40px;
+}
